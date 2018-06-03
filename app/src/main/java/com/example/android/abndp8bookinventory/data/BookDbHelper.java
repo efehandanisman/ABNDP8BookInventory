@@ -20,12 +20,12 @@ public class BookDbHelper extends SQLiteOpenHelper {
     }
 
     public void onCreate(SQLiteDatabase db) {
-        String SQL_CREATE_ENTRIES = "CREATE TABLE" + BookEntry.TABLE_NAME + " ("
-                + BookEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT"
-                + BookEntry.COLUMN_BOOK_NAME + " TEXT NOT NULL"
-                + BookEntry.COLUMN_PUBLISHER + " TEXT NOT NULL"
-                + BookEntry.COLUMN_PRICE + "INTEGER NOT NULL)"
-                + BookEntry.COLUMN_STOCK + "INTEGER NOT NULL);";
+        String SQL_CREATE_ENTRIES = "CREATE TABLE " + BookEntry.TABLE_NAME + " ("
+                + BookEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + BookEntry.COLUMN_BOOK_NAME + " TEXT NOT NULL, "
+                + BookEntry.COLUMN_PUBLISHER + " TEXT NOT NULL, "
+                + BookEntry.COLUMN_PRICE + " INTEGER NOT NULL, "
+                + BookEntry.COLUMN_STOCK + " INTEGER NOT NULL);";
         db.execSQL(SQL_CREATE_ENTRIES);
     }
 
