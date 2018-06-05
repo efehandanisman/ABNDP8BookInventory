@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import com.example.android.abndp8bookinventory.data.BookContract.BookEntry;
 import com.example.android.abndp8bookinventory.data.BookContract;
@@ -51,7 +52,41 @@ public class MainActivity extends AppCompatActivity {
 
         // Always close the cursor when you're done reading from it. This releases all its
         // resources and makes it invalid.
-        cursor.close();
+        TextView displayView = (TextView) findViewById(R.id.text_view);
+
+        try {
+            displayView.setText("We have " + cursor.getCount() + " books in stock.\n\n");
+            displayView.append(BookEntry._ID + " - " +
+                    BookEntry.COLUMN_BOOK_NAME + " - " +
+                    BookEntry.COLUMN_PUBLISHER + " - " +
+                    BookEntry.COLUMN_STOCK + " - " +
+                    BookEntry.COLUMN_PRICE + " - " + "\n");
+
+            int idColumnIndex = cursor.getColumnIndex(BookEntry._ID);
+            int nameColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_BOOK_NAME);
+            int publisherColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_PUBLISHER);
+            int stockColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_STOCK);
+            int priceColumnIndex = cursor.getColumnIndex(BookEntry.COLUMN_PRICE);
+
+
+            while (cursor.moveToNext()) {
+                int currentID = cursor.getInt(idColumnIndex);
+                String currentName = cursor.getString(nameColumnIndex);
+                String currentPublisher = cursor.getString(publisherColumnIndex);
+                int currentStock = cursor.getInt(stockColumnIndex);
+                int currentPrice = cursor.getInt(priceColumnIndex);
+
+                displayView.append(("\n"+ currentID + " - " +
+                        currentName + " - " +
+                        currentPublisher + " - " +
+                        currentStock + " - " +
+                        currentPrice));
+                            }
+        }
+        finally {
+            cursor.close();
+
+        }
     }
 
 
